@@ -10,7 +10,6 @@ import 'package:book_club/Components/text_button.dart';
 import 'package:book_club/Components/title_text.dart';
 import 'package:book_club/Models/theme.dart';
 import 'package:book_club/Painters/curve_painter.dart';
-import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +23,12 @@ class AuthenticationPage extends StatefulWidget {
 
 class _AuthenticationPageState extends State<AuthenticationPage>
     with SingleTickerProviderStateMixin {
-  final GlobalKey<AnimatedListState> listKey = GlobalKey();
+  static final GlobalKey<AnimatedListState> listKey = GlobalKey();
+  static final _formKey = new GlobalKey<FormState>();
+
+  Key _k1 = new GlobalKey();
+  Key _k2 = new GlobalKey();
+  Key _k3 = new GlobalKey();
 
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
@@ -52,6 +56,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
     _passwordCNFController = TextEditingController();
     screenComponentsList = [
       AnimatedIconTextField(
+        key: _k1,
         context: context,
         icon1: Icons.email_outlined,
         icon2: Icons.email_rounded,
@@ -59,6 +64,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
         textEditingController: _emailController,
       ),
       AnimatedIconTextField(
+        key: _k2,
         context: context,
         icon1: Icons.lock_open_outlined,
         icon2: Icons.lock_outline,
@@ -67,7 +73,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
       ),
     ];
     confirmPasswordComponent = AnimatedIconTextField(
-      key: UniqueKey(),
+      key: _k3,
       context: context,
       icon1: Icons.lock_open_outlined,
       icon2: Icons.lock_outline,
@@ -91,25 +97,71 @@ class _AuthenticationPageState extends State<AuthenticationPage>
       builder: (context, ThemeModel value, child) {
         return Scaffold(
           // appBar: HiddenAppBar(),
-          body: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: CustomPaint(
-              painter: CurvePainter(),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.12),
-                      child: TitleText(context: context),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                      child: AnimatedSwitcher(
+          body: SingleChildScrollView(
+            child: Container(
+              // color: Theme.of(context).colorScheme.primary,
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: CustomPaint(
+                painter: CurvePainter(),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.12),
+                        child: TitleText(context: context),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        child: AnimatedSwitcher(
+                          duration: Duration(milliseconds: 500),
+                          transitionBuilder: (child, animation) =>
+                              ScaleTransition(
+                            scale: animation,
+                            child: child,
+                          ),
+                          switchInCurve: Curves.easeInExpo,
+                          switchOutCurve: Curves.easeOutExpo,
+                          child: announcementText,
+                        ),
+                      ),
+                      AnimatedList(
+                        key: listKey,
+                        initialItemCount: 2,
+                        itemBuilder: (context, index, animation) {
+                          return SizeTransition(
+                            key: UniqueKey(),
+                            sizeFactor: animation,
+                            child: screenComponentsList[index],
+                          );
+                        },
+                        shrinkWrap: true,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          OptionsBoxBorderButton(
+                            onPressed1: signInFunction,
+                            onPressed2: signUpFunction,
+                            title1: "Sign In",
+                            title2: "Sign Up",
+                            condition: signinScreenShown,
+                          ),
+                          BoxBorderButton(
+                            onPressed: () {
+                              Fluttertoast.showToast(
+                                msg: "Sign In With Google",
+                              );
+                            },
+                            title: "Google",
+                          ),
+                        ],
+                      ),
+                      AnimatedSwitcher(
                         duration: Duration(milliseconds: 500),
                         transitionBuilder: (child, animation) =>
                             ScaleTransition(
@@ -118,54 +170,12 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                         ),
                         switchInCurve: Curves.easeInExpo,
                         switchOutCurve: Curves.easeOutExpo,
-                        child: announcementText,
+                        child:
+                            signinScreenShown ? signUpOption() : signInOption(),
                       ),
-                    ),
-                    AnimatedList(
-                      key: listKey,
-                      initialItemCount: 2,
-                      itemBuilder: (context, index, animation) {
-                        return SizeTransition(
-                          key: UniqueKey(),
-                          sizeFactor: animation,
-                          child: screenComponentsList[index],
-                        );
-                      },
-                      shrinkWrap: true,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        OptionsBoxBorderButton(
-                          onPressed1: signInFunction,
-                          onPressed2: signUpFunction,
-                          title1: "Sign In",
-                          title2: "Sign Up",
-                          condition: signinScreenShown,
-                        ),
-                        BoxBorderButton(
-                          onPressed: () {
-                            Fluttertoast.showToast(
-                              msg: "Sign In With Google",
-                            );
-                          },
-                          title: "Google",
-                        ),
-                      ],
-                    ),
-                    AnimatedSwitcher(
-                      duration: Duration(milliseconds: 500),
-                      transitionBuilder: (child, animation) => ScaleTransition(
-                        scale: animation,
-                        child: child,
-                      ),
-                      switchInCurve: Curves.easeInExpo,
-                      switchOutCurve: Curves.easeOutExpo,
-                      child:
-                          signinScreenShown ? signUpOption() : signInOption(),
-                    ),
-                    SizedBox(height: 1),
-                  ],
+                      SizedBox(height: 1),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -195,7 +205,6 @@ class _AuthenticationPageState extends State<AuthenticationPage>
               _passwordController.clear();
               _passwordCNFController.clear();
               log("message in");
-              // FocusScope.of(context).unfocus();
               setState(() {
                 signinScreenShown = false;
                 announcementText = HeadingText(
@@ -211,7 +220,10 @@ class _AuthenticationPageState extends State<AuthenticationPage>
             },
             child: Text(
               'Sign Up',
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .copyWith(color: Theme.of(context).colorScheme.primary),
             ),
           ),
         ],
@@ -249,7 +261,10 @@ class _AuthenticationPageState extends State<AuthenticationPage>
             },
             child: Text(
               'Sign In',
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .copyWith(color: Theme.of(context).colorScheme.primary),
             ),
           ),
         ],

@@ -9,8 +9,8 @@ class CurvePainter extends CustomPainter {
     // paint.color = Colors.green[800]!;
     paint.shader =
         ui.Gradient.linear(Offset.zero, Offset(size.width / 2, size.height), [
-      const Color(0xff799e9a),
-      const Color(0xffa9d4cc),
+      const Color(0xff16697A),
+      const Color(0xff141414),
     ]);
     paint.style = PaintingStyle.fill;
     paint.strokeWidth = 2.0;

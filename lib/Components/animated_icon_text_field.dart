@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:animate_icons/animate_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -61,10 +63,16 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextField(
+        controller: widget.textEditingController,
         onTap: () {
           animationController.animateToEnd();
         },
         onTapOutside: (event) {
+          animationController.animateToStart();
+          // Unfocus
+          FocusScope.of(context).unfocus();
+        },
+        onSubmitted: (value) {
           animationController.animateToStart();
           // Unfocus
           FocusScope.of(context).unfocus();
@@ -77,6 +85,7 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
             controller: animationController,
             onStartIconPress: () => onStartIconPress(context),
             onEndIconPress: () => onEndIconPress(context),
+            startIconColor: Theme.of(context).colorScheme.onSurface,
             duration: const Duration(milliseconds: 500),
             clockwise: false,
           ),
@@ -99,7 +108,7 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
-              color: Theme.of(context).colorScheme.secondary,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
           errorBorder: OutlineInputBorder(

@@ -32,9 +32,11 @@ class _PrimaryTextFieldState extends State<PrimaryTextField>
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextField(
         onTapOutside: (event) {
-          // Unfocus
           FocusScope.of(context).unfocus();
         },
+        controller: widget.textEditingController,
+        obscureText: widget.isPassword,
+        keyboardType: widget.keyboardType,
         decoration: InputDecoration(
           prefixIcon: widget.icon == null ? null : Icon(widget.icon),
           labelText: widget.labelText,
