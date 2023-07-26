@@ -5,7 +5,6 @@ import 'dart:developer';
 import 'package:book_club/Components/animated_icon_text_field.dart';
 import 'package:book_club/Components/animated_text_button.dart';
 import 'package:book_club/Components/heading_text.dart';
-import 'package:book_club/Components/primary_text_field.dart';
 import 'package:book_club/Components/text_button.dart';
 import 'package:book_club/Components/title_text.dart';
 import 'package:book_club/Models/theme.dart';
@@ -24,11 +23,12 @@ class AuthenticationPage extends StatefulWidget {
 class _AuthenticationPageState extends State<AuthenticationPage>
     with SingleTickerProviderStateMixin {
   static final GlobalKey<AnimatedListState> listKey = GlobalKey();
-  static final _formKey = new GlobalKey<FormState>();
+  // ignore: unused_field
+  static final _formKey = GlobalKey<FormState>();
 
-  Key _k1 = new GlobalKey();
-  Key _k2 = new GlobalKey();
-  Key _k3 = new GlobalKey();
+  final Key _k1 = GlobalKey();
+  final Key _k2 = GlobalKey();
+  final Key _k3 = GlobalKey();
 
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
@@ -49,7 +49,6 @@ class _AuthenticationPageState extends State<AuthenticationPage>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
@@ -84,7 +83,6 @@ class _AuthenticationPageState extends State<AuthenticationPage>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -98,7 +96,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
         return Scaffold(
           // appBar: HiddenAppBar(),
           body: SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
               // color: Theme.of(context).colorScheme.primary,
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,

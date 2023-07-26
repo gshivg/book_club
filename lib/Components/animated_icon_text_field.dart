@@ -1,7 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'dart:developer';
-
 import 'package:animate_icons/animate_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -33,14 +29,13 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     animationController = AnimateIconController();
   }
 
   bool onEndIconPress(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+     const SnackBar(
         content: Text("onEndIconPress called"),
         duration: Duration(seconds: 1),
       ),
@@ -50,7 +45,7 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
 
   bool onStartIconPress(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+     const SnackBar(
         content: Text("onStartIconPress called"),
         duration: Duration(seconds: 1),
       ),
@@ -90,7 +85,7 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
             clockwise: false,
           ),
           labelText: widget.labelText,
-          labelStyle: TextStyle(
+          labelStyle: const TextStyle(
             fontFamily: "Lugrasimo",
           ),
           border: OutlineInputBorder(

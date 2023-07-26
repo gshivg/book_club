@@ -5,7 +5,7 @@ class HeadingText extends StatelessWidget {
   final String text;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height * 0.06,
       width: MediaQuery.of(context).size.width * 0.5,
       child: Center(
@@ -18,6 +18,5 @@ class HeadingText extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

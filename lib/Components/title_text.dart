@@ -1,4 +1,3 @@
-import 'package:book_club/Designs/title_text.dart';
 import 'package:flutter/material.dart';
 
 class TitleText extends StatelessWidget {
@@ -6,11 +5,16 @@ class TitleText extends StatelessWidget {
   final BuildContext context;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: MediaQuery.of(context).size.height * 0.15,
       child: Text(
         "Shiv's Book Gallery",
-        style: TitleTextSyle(context),
+        style: TextStyle(
+          fontFamily: "Lugrasimo",
+          fontSize: 40,
+          color: Theme.of(context).colorScheme.surface,
+          fontWeight: FontWeight.bold,
+        ),
         textAlign: TextAlign.center,
       ),
     );

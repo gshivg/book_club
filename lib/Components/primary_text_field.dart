@@ -1,7 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 class PrimaryTextField extends StatefulWidget {
@@ -40,7 +36,7 @@ class _PrimaryTextFieldState extends State<PrimaryTextField>
         decoration: InputDecoration(
           prefixIcon: widget.icon == null ? null : Icon(widget.icon),
           labelText: widget.labelText,
-          labelStyle: TextStyle(
+          labelStyle: const TextStyle(
             fontFamily: "Lugrasimo",
           ),
           border: OutlineInputBorder(

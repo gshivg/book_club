@@ -37,7 +37,7 @@ class _BoxBorderButtonState extends State<BoxBorderButton> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
             ),
           ),
-          child: Container(
+          child: SizedBox(
             height: 30,
             width: MediaQuery.of(context).size.width * 0.3,
             child: Center(

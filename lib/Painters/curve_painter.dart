@@ -5,7 +5,6 @@ class CurvePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint();
-    // TODO: Set properties to paint
     // paint.color = Colors.green[800]!;
     paint.shader =
         ui.Gradient.linear(Offset.zero, Offset(size.width / 2, size.height), [
@@ -16,7 +15,6 @@ class CurvePainter extends CustomPainter {
     paint.strokeWidth = 2.0;
 
     var path = Path();
-    // TODO: Draw path
     // path.lineTo(size.width, size.height);
     path.moveTo(0, size.height);
     path.lineTo(0, size.height * 0.35);
