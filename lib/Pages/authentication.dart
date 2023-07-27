@@ -9,6 +9,7 @@ import 'package:book_club/Components/text_button.dart';
 import 'package:book_club/Components/title_text.dart';
 import 'package:book_club/Models/theme.dart';
 import 'package:book_club/Painters/curve_painter.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -44,6 +45,19 @@ class _AuthenticationPageState extends State<AuthenticationPage>
 
   late List<Widget> screenComponentsList;
   late Widget confirmPasswordComponent;
+  void reFocus() async {
+    GestureBinding.instance.handlePointerEvent(
+      PointerDownEvent(
+        position: Offset(0, 0),
+      ),
+    );
+    await Future.delayed(Duration(milliseconds: 10));
+    GestureBinding.instance.handlePointerEvent(
+      PointerUpEvent(
+        position: Offset(0, 0),
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -218,6 +232,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                   duration: Duration(milliseconds: 500),
                 );
               });
+              reFocus();
             },
             child: Text(
               'Sign Up',
@@ -259,6 +274,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                   duration: Duration(milliseconds: 500),
                 );
               });
+              reFocus();
             },
             child: Text(
               'Sign In',
