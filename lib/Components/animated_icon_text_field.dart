@@ -41,22 +41,10 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
   }
 
   bool onEndIconPress(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text("onEndIconPress called"),
-        duration: Duration(seconds: 1),
-      ),
-    );
     return true;
   }
 
   bool onStartIconPress(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text("onStartIconPress called"),
-        duration: Duration(seconds: 1),
-      ),
-    );
     return true;
   }
 
@@ -95,8 +83,10 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
           if (widget.textEditingController.text.isNotEmpty) {
             submitted = true;
           } else {
-            submitted = false;
-            prefixAnimationController.animateToStart();
+            if (!FocusScope.of(widget.context).hasFocus) {
+              submitted = false;
+              prefixAnimationController.animateToStart();
+            }
           }
         },
         obscureText: passwordVisible,
