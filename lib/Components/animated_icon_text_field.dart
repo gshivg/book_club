@@ -25,9 +25,10 @@ class AnimatedIconTextField extends StatefulWidget {
 }
 
 class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late AnimateIconController prefixAnimationController;
   late AnimateIconController suffixAnimationController;
+
   late bool submitted;
   late bool passwordVisible;
 
@@ -148,6 +149,12 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
             ),
           ),
           errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.error,
+            ),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
               color: Theme.of(context).colorScheme.error,
