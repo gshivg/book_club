@@ -34,8 +34,6 @@ class _AuthenticationPageState extends State<AuthenticationPage>
   late TextEditingController _passwordController;
   late TextEditingController _passwordCNFController;
 
-  // late AnimationController _animationController;
-
   bool signinScreenShown = true;
   bool showAnimations = false;
 
@@ -61,6 +59,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
         icon2: Icons.email_rounded,
         labelText: "Enter Email",
         textEditingController: _emailController,
+        keyboardType: TextInputType.emailAddress,
       ),
       AnimatedIconTextField(
         key: _k2,
@@ -69,6 +68,8 @@ class _AuthenticationPageState extends State<AuthenticationPage>
         icon2: Icons.lock_outline,
         labelText: "Enter Password",
         textEditingController: _passwordController,
+        isPassword: true,
+        keyboardType: TextInputType.visiblePassword,
       ),
     ];
     confirmPasswordComponent = AnimatedIconTextField(
@@ -78,6 +79,8 @@ class _AuthenticationPageState extends State<AuthenticationPage>
       icon2: Icons.lock_outline,
       labelText: "Confirm Password",
       textEditingController: _passwordCNFController,
+      isPassword: true,
+      keyboardType: TextInputType.visiblePassword,
     );
   }
 
