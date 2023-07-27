@@ -2,15 +2,16 @@ import 'package:animate_icons/animate_icons.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedIconTextField extends StatefulWidget {
-  const AnimatedIconTextField(
-      {super.key,
-      required this.context,
-      required this.icon1,
-      required this.icon2,
-      this.isPassword = false,
-      this.keyboardType = TextInputType.text,
-      required this.labelText,
-      required this.textEditingController});
+  const AnimatedIconTextField({
+    super.key,
+    required this.context,
+    required this.icon1,
+    required this.icon2,
+    this.isPassword = false,
+    this.keyboardType = TextInputType.text,
+    required this.labelText,
+    required this.textEditingController,
+  });
 
   final TextEditingController textEditingController;
   final BuildContext context;
@@ -25,17 +26,23 @@ class AnimatedIconTextField extends StatefulWidget {
 
 class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
     with SingleTickerProviderStateMixin {
-  late AnimateIconController animationController;
+  late AnimateIconController prefixAnimationController;
+  late AnimateIconController suffixAnimationController;
+  late bool submitted;
+  late bool passwordVisible;
 
   @override
   void initState() {
     super.initState();
-    animationController = AnimateIconController();
+    prefixAnimationController = AnimateIconController();
+    suffixAnimationController = AnimateIconController();
+    submitted = false;
+    passwordVisible = !widget.isPassword;
   }
 
   bool onEndIconPress(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
-     const SnackBar(
+      const SnackBar(
         content: Text("onEndIconPress called"),
         duration: Duration(seconds: 1),
       ),
@@ -45,7 +52,7 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
 
   bool onStartIconPress(BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
-     const SnackBar(
+      const SnackBar(
         content: Text("onStartIconPress called"),
         duration: Duration(seconds: 1),
       ),
@@ -60,24 +67,45 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
       child: TextField(
         controller: widget.textEditingController,
         onTap: () {
-          animationController.animateToEnd();
+          prefixAnimationController.animateToEnd();
         },
         onTapOutside: (event) {
-          animationController.animateToStart();
-          // Unfocus
+          if (widget.textEditingController.text.isNotEmpty) {
+            submitted = true;
+          } else {
+            submitted = false;
+            prefixAnimationController.animateToStart();
+          }
+          if (submitted) {
+          } else {
+            prefixAnimationController.animateToStart();
+          }
           FocusScope.of(context).unfocus();
         },
         onSubmitted: (value) {
-          animationController.animateToStart();
-          // Unfocus
+          if (widget.textEditingController.text.isNotEmpty) {
+            submitted = true;
+          } else {
+            submitted = false;
+            prefixAnimationController.animateToStart();
+          }
           FocusScope.of(context).unfocus();
         },
+        onChanged: (value) {
+          if (widget.textEditingController.text.isNotEmpty) {
+            submitted = true;
+          } else {
+            submitted = false;
+            prefixAnimationController.animateToStart();
+          }
+        },
+        obscureText: passwordVisible,
         decoration: InputDecoration(
           prefixIcon: AnimateIcons(
             startIcon: widget.icon1,
             endIcon: widget.icon2,
             size: 25,
-            controller: animationController,
+            controller: prefixAnimationController,
             onStartIconPress: () => onStartIconPress(context),
             onEndIconPress: () => onEndIconPress(context),
             startIconColor: Theme.of(context).colorScheme.onSurface,
@@ -88,6 +116,29 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
           labelStyle: const TextStyle(
             fontFamily: "Lugrasimo",
           ),
+          suffixIcon: widget.isPassword
+              ? AnimateIcons(
+                  startIcon: Icons.visibility_outlined,
+                  endIcon: Icons.visibility_off_outlined,
+                  startIconColor: Theme.of(context).colorScheme.onSurface,
+                  endIconColor: Theme.of(context).colorScheme.onSurface,
+                  size: 25,
+                  duration: const Duration(milliseconds: 200),
+                  controller: suffixAnimationController,
+                  onStartIconPress: () {
+                    setState(() {
+                      passwordVisible = !passwordVisible;
+                    });
+                    return true;
+                  },
+                  onEndIconPress: () {
+                    setState(() {
+                      passwordVisible = !passwordVisible;
+                    });
+                    return true;
+                  },
+                )
+              : null,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide(
