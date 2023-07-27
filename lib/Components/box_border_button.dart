@@ -39,7 +39,7 @@ class _BoxBorderButtonState extends State<BoxBorderButton> {
           ),
           child: SizedBox(
             height: 30,
-            width: MediaQuery.of(context).size.width * 0.3,
+            width: MediaQuery.of(context).size.width * 0.35,
             child: Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

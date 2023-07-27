@@ -8,11 +8,17 @@ class OptionsBoxBorderButton extends StatefulWidget {
     required this.title1,
     required this.title2,
     required this.condition,
+    this.icon1,
+    this.icon2,
   });
+
   final VoidCallback onPressed1;
   final VoidCallback onPressed2;
   final String title1;
   final String title2;
+  final IconData? icon1;
+  final IconData? icon2;
+
   final bool condition;
   @override
   State<OptionsBoxBorderButton> createState() => _OptionsBoxBorderButtonState();
@@ -41,7 +47,7 @@ class _OptionsBoxBorderButtonState extends State<OptionsBoxBorderButton> {
           ),
           child: SizedBox(
             height: 30,
-            width: MediaQuery.of(context).size.width * 0.3,
+            width: MediaQuery.of(context).size.width * 0.35,
             child: Center(
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 500),
@@ -52,21 +58,47 @@ class _OptionsBoxBorderButtonState extends State<OptionsBoxBorderButton> {
                 switchInCurve: Curves.easeInExpo,
                 switchOutCurve: Curves.easeOutExpo,
                 child: widget.condition
-                    ? Text(
-                        widget.title1,
+                    ? Row(
                         key: const ValueKey(1),
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge!
-                            .copyWith(fontFamily: "Lugrasimo"),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (widget.icon1 != null)
+                            Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: Icon(
+                                widget.icon1,
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                            ),
+                          Text(
+                            widget.title1,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(fontFamily: "Lugrasimo"),
+                          ),
+                        ],
                       )
-                    : Text(
-                        widget.title2,
+                    : Row(
                         key: const ValueKey(2),
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleLarge!
-                            .copyWith(fontFamily: "Lugrasimo"),
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (widget.icon2 != null)
+                            Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: Icon(
+                                widget.icon2,
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                            ),
+                          Text(
+                            widget.title2,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .copyWith(fontFamily: "Lugrasimo"),
+                          ),
+                        ],
                       ),
               ),
             ),
