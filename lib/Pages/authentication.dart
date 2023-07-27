@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'dart:developer';
 
@@ -43,13 +43,13 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
 
   void reFocus() async {
     GestureBinding.instance.handlePointerEvent(
-      PointerDownEvent(
+      const PointerDownEvent(
         position: Offset(0, 0),
       ),
     );
-    await Future.delayed(Duration(milliseconds: 10));
+    await Future.delayed(const Duration(milliseconds: 10));
     GestureBinding.instance.handlePointerEvent(
-      PointerUpEvent(
+      const PointerUpEvent(
         position: Offset(0, 0),
       ),
     );
@@ -125,13 +125,14 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).size.height * 0.12),
+                          top: MediaQuery.of(context).size.height * 0.12,
+                        ),
                         child: TitleText(context: context),
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                         child: AnimatedSwitcher(
-                          duration: Duration(milliseconds: 500),
+                          duration: const Duration(milliseconds: 500),
                           transitionBuilder: (child, animation) =>
                               ScaleTransition(
                             scale: animation,
@@ -140,11 +141,11 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                           switchInCurve: Curves.easeInExpo,
                           switchOutCurve: Curves.easeOutExpo,
                           child: signinScreenShown
-                              ? HeadingText(
+                              ? const HeadingText(
                                   text: "Sign In",
                                   key: ValueKey(1),
                                 )
-                              : HeadingText(
+                              : const HeadingText(
                                   text: "Sign Up",
                                   key: ValueKey(2),
                                 ),
@@ -187,7 +188,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                         ),
                       ),
                       AnimatedSwitcher(
-                        duration: Duration(milliseconds: 500),
+                        duration: const Duration(milliseconds: 500),
                         transitionBuilder: (child, animation) =>
                             ScaleTransition(
                           scale: animation,
@@ -198,7 +199,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                         child:
                             signinScreenShown ? signUpOption() : signInOption(),
                       ),
-                      SizedBox(height: 1),
+                      const SizedBox(height: 1),
                     ],
                   ),
                 ),
@@ -219,7 +220,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => HomeScreen(),
+        builder: (context) => const HomeScreen(),
       ),
     );
   }
@@ -229,7 +230,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text("Don't have an account?"),
+          const Text("Don't have an account?"),
           TextButton(
             onPressed: () {
               _emailController.clear();
@@ -240,7 +241,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                 screenComponentsList.add(confirmPasswordComponent);
                 listKey.currentState!.insertItem(
                   2,
-                  duration: Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 500),
                 );
               });
               reFocus();
@@ -261,7 +262,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text("Already have an account?"),
+          const Text("Already have an account?"),
           TextButton(
             onPressed: () {
               _emailController.clear();
@@ -277,7 +278,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                     sizeFactor: animation,
                     child: confirmPasswordComponent,
                   ),
-                  duration: Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 500),
                 );
               });
               reFocus();
