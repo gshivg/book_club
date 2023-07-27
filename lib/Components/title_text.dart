@@ -8,7 +8,7 @@ class TitleText extends StatelessWidget {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.15,
       child: Text(
-        "Shiv's Book Gallery",
+        "Shiv's Book\nGallery",
         style: TextStyle(
           fontFamily: "Lugrasimo",
           fontSize: 40,
