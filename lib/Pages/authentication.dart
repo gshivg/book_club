@@ -3,11 +3,12 @@
 import 'dart:developer';
 
 import 'package:book_club/Components/animated_icon_text_field.dart';
-import 'package:book_club/Components/animated_text_button.dart';
 import 'package:book_club/Components/heading_text.dart';
-import 'package:book_club/Components/text_button.dart';
+import 'package:book_club/Components/box_border_button.dart';
+import 'package:book_club/Components/options_box_border_button.dart';
 import 'package:book_club/Components/title_text.dart';
 import 'package:book_club/Models/theme.dart';
+import 'package:book_club/Pages/homepage.dart';
 import 'package:book_club/Painters/curve_painter.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +22,7 @@ class AuthenticationPage extends StatefulWidget {
   State<AuthenticationPage> createState() => _AuthenticationPageState();
 }
 
-class _AuthenticationPageState extends State<AuthenticationPage>
-    with SingleTickerProviderStateMixin {
+class _AuthenticationPageState extends State<AuthenticationPage> {
   static final GlobalKey<AnimatedListState> listKey = GlobalKey();
   // ignore: unused_field
   static final _formKey = GlobalKey<FormState>();
@@ -38,13 +38,9 @@ class _AuthenticationPageState extends State<AuthenticationPage>
   bool signinScreenShown = true;
   bool showAnimations = false;
 
-  Widget announcementText = HeadingText(
-    text: "Sign In",
-    key: ValueKey(1),
-  );
-
   late List<Widget> screenComponentsList;
   late Widget confirmPasswordComponent;
+
   void reFocus() async {
     GestureBinding.instance.handlePointerEvent(
       PointerDownEvent(
@@ -62,9 +58,11 @@ class _AuthenticationPageState extends State<AuthenticationPage>
   @override
   void initState() {
     super.initState();
+
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
     _passwordCNFController = TextEditingController();
+
     screenComponentsList = [
       AnimatedIconTextField(
         key: _k1,
@@ -86,6 +84,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
         keyboardType: TextInputType.visiblePassword,
       ),
     ];
+
     confirmPasswordComponent = AnimatedIconTextField(
       key: _k3,
       context: context,
@@ -114,7 +113,6 @@ class _AuthenticationPageState extends State<AuthenticationPage>
           // appBar: HiddenAppBar(),
           body: SingleChildScrollView(
             child: SizedBox(
-              // color: Theme.of(context).colorScheme.primary,
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: CustomPaint(
@@ -141,7 +139,15 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                           ),
                           switchInCurve: Curves.easeInExpo,
                           switchOutCurve: Curves.easeOutExpo,
-                          child: announcementText,
+                          child: signinScreenShown
+                              ? HeadingText(
+                                  text: "Sign In",
+                                  key: ValueKey(1),
+                                )
+                              : HeadingText(
+                                  text: "Sign Up",
+                                  key: ValueKey(2),
+                                ),
                         ),
                       ),
                       AnimatedList(
@@ -156,25 +162,29 @@ class _AuthenticationPageState extends State<AuthenticationPage>
                         },
                         shrinkWrap: true,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          OptionsBoxBorderButton(
-                            onPressed1: signInFunction,
-                            onPressed2: signUpFunction,
-                            title1: "Sign In",
-                            title2: "Sign Up",
-                            condition: signinScreenShown,
-                          ),
-                          BoxBorderButton(
-                            onPressed: () {
-                              Fluttertoast.showToast(
-                                msg: "Sign In With Google",
-                              );
-                            },
-                            title: "Google",
-                          ),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            OptionsBoxBorderButton(
+                              onPressed1: signInFunction,
+                              onPressed2: signUpFunction,
+                              title1: "Sign In",
+                              title2: "Sign Up",
+                              condition: signinScreenShown,
+                            ),
+                            BoxBorderButton(
+                              onPressed: () {
+                                Fluttertoast.showToast(
+                                  msg: "Sign In With Google",
+                                );
+                              },
+                              title: "Google",
+                            ),
+                          ],
+                        ),
                       ),
                       AnimatedSwitcher(
                         duration: Duration(milliseconds: 500),
@@ -206,9 +216,15 @@ class _AuthenticationPageState extends State<AuthenticationPage>
 
   void signUpFunction() {
     Fluttertoast.showToast(msg: "Sign Up");
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => HomeScreen(),
+      ),
+    );
   }
 
-  signUpOption() => Row(
+  Widget signUpOption() => Row(
         key: UniqueKey(),
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -219,13 +235,8 @@ class _AuthenticationPageState extends State<AuthenticationPage>
               _emailController.clear();
               _passwordController.clear();
               _passwordCNFController.clear();
-              log("message in");
               setState(() {
                 signinScreenShown = false;
-                announcementText = HeadingText(
-                  text: "Sign Up",
-                  key: UniqueKey(),
-                );
                 screenComponentsList.add(confirmPasswordComponent);
                 listKey.currentState!.insertItem(
                   2,
@@ -245,7 +256,7 @@ class _AuthenticationPageState extends State<AuthenticationPage>
         ],
       );
 
-  signInOption() => Row(
+  Widget signInOption() => Row(
         key: UniqueKey(),
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -256,13 +267,8 @@ class _AuthenticationPageState extends State<AuthenticationPage>
               _emailController.clear();
               _passwordController.clear();
               _passwordCNFController.clear();
-              log("message up");
               setState(() {
                 signinScreenShown = true;
-                announcementText = HeadingText(
-                  text: "Sign In",
-                  key: UniqueKey(),
-                );
                 screenComponentsList.remove(confirmPasswordComponent);
                 listKey.currentState!.removeItem(
                   screenComponentsList.length,
