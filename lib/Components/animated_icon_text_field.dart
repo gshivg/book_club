@@ -37,7 +37,7 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
     prefixAnimationController = AnimateIconController();
     suffixAnimationController = AnimateIconController();
     submitted = false;
-    passwordVisible = !widget.isPassword;
+    passwordVisible = widget.isPassword;
   }
 
   bool onEndIconPress(BuildContext context) {
@@ -127,13 +127,13 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
                   controller: suffixAnimationController,
                   onStartIconPress: () {
                     setState(() {
-                      passwordVisible = !passwordVisible;
+                      passwordVisible = false;
                     });
                     return true;
                   },
                   onEndIconPress: () {
                     setState(() {
-                      passwordVisible = !passwordVisible;
+                      passwordVisible = true;
                     });
                     return true;
                   },
