@@ -24,11 +24,13 @@ class MyApp extends StatelessWidget {
               colorScheme: colourScheme(),
               useMaterial3: true,
             ).copyWith(
-                pageTransitionsTheme: const PageTransitionsTheme(
-              builders: <TargetPlatform, PageTransitionsBuilder>{
-                TargetPlatform.android: ZoomPageTransitionsBuilder(),
-              },
-            )),
+              pageTransitionsTheme: const PageTransitionsTheme(
+                builders: <TargetPlatform, PageTransitionsBuilder>{
+                  TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
+                  TargetPlatform.iOS: OpenUpwardsPageTransitionsBuilder(),
+                },
+              ),
+            ),
             home: const AuthenticationPage(),
           );
         },
