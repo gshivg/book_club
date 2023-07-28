@@ -15,4 +15,9 @@ class ThemeSharedPreferences {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.getBool(PREF_KEY) ?? false;
   }
+
+  void removeTheme() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.remove(PREF_KEY);
+  }
 }
