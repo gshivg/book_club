@@ -10,8 +10,8 @@ class UserModel {
 
   UserModel({
     required this.id,
-    required this.name,
     required this.email,
+    this.name,
     this.phone,
     this.address,
     this.image,
@@ -26,20 +26,20 @@ class UserModel {
     phone = map['phone'];
     address = map['address'];
     image = map['image'];
-    createdAt = map['createdAt'];
-    updatedAt = map['updatedAt'];
+    createdAt = map['createdAt'].toDate();
+    updatedAt = map['updatedAt'].toDate();
   }
 
-  UserModel toMap() {
-    return UserModel(
-      id: id,
-      name: name,
-      email: email,
-      phone: phone,
-      address: address,
-      image: image,
-      createdAt: createdAt,
-      updatedAt: updatedAt,
-    );
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'email': email,
+      'phone': phone,
+      'address': address,
+      'image': image,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+    };
   }
 }

@@ -1,16 +1,16 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
-import 'dart:developer';
-
 import 'package:book_club/Components/animated_icon_text_field.dart';
 import 'package:book_club/Components/heading_text.dart';
 import 'package:book_club/Components/box_border_button.dart';
 import 'package:book_club/Components/options_box_border_button.dart';
 import 'package:book_club/Components/title_text.dart';
+import 'package:book_club/Firebase/user.dart';
 import 'package:book_club/Helpers/ui_helper.dart';
 import 'package:book_club/Models/theme.dart';
 import 'package:book_club/Pages/homepage.dart';
 import 'package:book_club/Painters/outer_painter.dart';
+import 'package:book_club/Shared/saved_user.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -96,6 +96,19 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
       isPassword: true,
       keyboardType: TextInputType.visiblePassword,
     );
+
+    SavedUserSharedPreferences().getUser().then(
+      (value) {
+        if (value != null) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ),
+          );
+        }
+      },
+    );
   }
 
   @override
@@ -111,7 +124,6 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
     return Consumer(
       builder: (context, ThemeModel value, child) {
         return Scaffold(
-          // appBar: HiddenAppBar(),
           body: SingleChildScrollView(
             child: SizedBox(
               height: MediaQuery.of(context).size.height,
@@ -208,17 +220,66 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
     );
   }
 
-  void signInFunction() {
-    Fluttertoast.showToast(msg: "Sign In");
+  void signInFunction() async {
+    UserFirebase userFirebase = UserFirebase();
+
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Please fill all the fields");
+      return;
+    }
+
     UIHelper.loadingDialog("Signing In...", context);
+    await userFirebase
+        .signInUser(_emailController.text, _passwordController.text)
+        .then((value) {
+      if (value == FirebaseResult.fail || value == FirebaseResult.error) {
+        _closeDialog();
+        return;
+      }
+      navigateToHomeScreen();
+    });
   }
 
-  void signUpFunction() {
-    Fluttertoast.showToast(msg: "Sign Up");
-    Navigator.push(
+  signUpFunction() async {
+    UserFirebase userFirebase = UserFirebase();
+
+    if (_emailController.text.isEmpty ||
+        _passwordController.text.isEmpty ||
+        _passwordCNFController.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Please fill all the fields");
+    }
+
+    if (_passwordController.text != _passwordCNFController.text) {
+      Fluttertoast.showToast(msg: "Passwords do not match");
+      return;
+    }
+
+    UIHelper.loadingDialog("Signing Up...", context);
+
+    await userFirebase
+        .createUser(_emailController.text, _passwordController.text)
+        .then((value) {
+      if (value == FirebaseResult.fail || value == FirebaseResult.error) {
+        _closeDialog();
+        return;
+      }
+
+      userFirebase.createUserProfile();
+
+      navigateToHomeScreen();
+    });
+  }
+
+  _closeDialog() {
+    Navigator.of(context).pop();
+  }
+
+  navigateToHomeScreen() {
+    Navigator.pop(context);
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const HomeScreen(),
+        builder: (context) => const HomePage(),
       ),
     );
   }
