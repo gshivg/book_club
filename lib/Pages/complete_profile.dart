@@ -88,6 +88,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
       Fluttertoast.showToast(msg: "Please fill all the fields");
       return;
     }
+    
     userModel!.name = nameController.text;
 
     UIHelper.loadingDialog("Updating Profile", context);

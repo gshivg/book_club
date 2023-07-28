@@ -30,6 +30,7 @@ class UserFirebase {
         updatedAt: DateTime.now(),
       );
       log(userModel!.id!);
+      savedUserSharedPreferences.setUser(userModel!.id!);
       return FirebaseResult.success;
     } on FirebaseAuthException catch (e) {
       log("createUser $e");
@@ -77,6 +78,7 @@ class UserFirebase {
       );
       await getUserByUID(userCredential.user!.uid);
       log(userModel!.id!);
+      savedUserSharedPreferences.setUser(userModel!.id!);
       return FirebaseResult.success;
     } on FirebaseAuthException catch (e) {
       log(e.toString());
@@ -161,6 +163,7 @@ class UserFirebase {
           .then((DocumentSnapshot documentSnapshot) {
         userModel =
             UserModel.fromMap(documentSnapshot.data() as Map<String, dynamic>);
+        savedUserSharedPreferences.setUser(userModel!.id!);
         log(userModel!.toMap().toString());
       });
       return FirebaseResult.success;

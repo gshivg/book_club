@@ -93,10 +93,12 @@ class _HomePageState extends State<HomePage> {
 
   checkCompleteProfile() async {
     SavedUserSharedPreferences().getUser().then((value) {
-      if (value == null) {
+      log(value);
+      if (value == "") {
         navigateToCompleteProfilePage();
+        return;
       }
-      UserFirebase().getUserByUID(value!).then((_value) {
+      UserFirebase().getUserByUID(value!).then((_) {
         if (userModel!.name == null) {
           navigateToCompleteProfilePage();
         }
