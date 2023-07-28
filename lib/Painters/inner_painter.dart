@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 
-class CurvePainter extends CustomPainter {
+class InnerPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint();
@@ -14,18 +14,18 @@ class CurvePainter extends CustomPainter {
 
     var path = Path();
     path.moveTo(0, size.height);
-    path.lineTo(0, size.height * 0.35);
+    path.lineTo(0, size.height * 0.13);
     path.quadraticBezierTo(
-        size.width / 2, size.height * 0.25, size.width, size.height * 0.35);
+        size.width / 2, size.height * 0.04, size.width, size.height * 0.13);
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);
-    
+
     canvas.drawPath(path, paint);
   }
 
   @override
-  bool shouldRepaint(CurvePainter oldDelegate) => true;
+  bool shouldRepaint(InnerPainter oldDelegate) => true;
 
   @override
-  bool shouldRebuildSemantics(CurvePainter oldDelegate) => false;
+  bool shouldRebuildSemantics(InnerPainter oldDelegate) => false;
 }

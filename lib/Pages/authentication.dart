@@ -7,9 +7,10 @@ import 'package:book_club/Components/heading_text.dart';
 import 'package:book_club/Components/box_border_button.dart';
 import 'package:book_club/Components/options_box_border_button.dart';
 import 'package:book_club/Components/title_text.dart';
+import 'package:book_club/Helpers/ui_helper.dart';
 import 'package:book_club/Models/theme.dart';
 import 'package:book_club/Pages/homepage.dart';
-import 'package:book_club/Painters/curve_painter.dart';
+import 'package:book_club/Painters/outer_painter.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -116,7 +117,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: CustomPaint(
-                painter: CurvePainter(),
+                painter: OuterPainter(),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
                   child: Column(
@@ -177,11 +178,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                               condition: signinScreenShown,
                             ),
                             BoxBorderButton(
-                              onPressed: () {
-                                Fluttertoast.showToast(
-                                  msg: "Sign In With Google",
-                                );
-                              },
+                              onPressed: googleAuthFunction,
                               title: "Google",
                             ),
                           ],
@@ -213,6 +210,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
 
   void signInFunction() {
     Fluttertoast.showToast(msg: "Sign In");
+    UIHelper.loadingDialog("Signing In...", context);
   }
 
   void signUpFunction() {
@@ -223,6 +221,10 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
         builder: (context) => const HomeScreen(),
       ),
     );
+  }
+
+  void googleAuthFunction() {
+    Fluttertoast.showToast(msg: "Google Auth");
   }
 
   Widget signUpOption() => Row(
@@ -285,10 +287,9 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
             },
             child: Text(
               'Sign In',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge!
-                  .copyWith(color: Theme.of(context).colorScheme.primary),
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
             ),
           ),
         ],
