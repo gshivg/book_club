@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               colorScheme: colourScheme(),
               useMaterial3: true,
-            ).copyWith(
               pageTransitionsTheme: const PageTransitionsTheme(
                 builders: <TargetPlatform, PageTransitionsBuilder>{
                   TargetPlatform.android: OpenUpwardsPageTransitionsBuilder(),
