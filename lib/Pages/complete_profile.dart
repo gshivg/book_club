@@ -101,6 +101,7 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
           Fluttertoast.showToast(msg: "Error updating profile");
           return;
         }
+        navigateToHomePage();
       },
     );
   }
