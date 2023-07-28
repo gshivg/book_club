@@ -4,7 +4,7 @@ class PrimaryTextField extends StatefulWidget {
   const PrimaryTextField(
       {super.key,
       required this.context,
-      required this.icon,
+      this.icon,
       this.isPassword = false,
       this.keyboardType = TextInputType.text,
       required this.labelText,
