@@ -1,4 +1,3 @@
-import 'package:book_club/Components/display_label.dart';
 import 'package:flutter/material.dart';
 
 primaryTextField(
@@ -13,7 +12,13 @@ primaryTextField(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextField(
         decoration: InputDecoration(
-          label: displayLabel(labelText, icon),
+          label: Row(
+            children: [
+              Icon(icon),
+              const SizedBox(width: 10),
+              Text(labelText),
+            ],
+          ),
         ),
         obscuringCharacter: '*',
         obscureText: isPassword,
