@@ -1,8 +1,8 @@
 import 'dart:developer';
 
+import 'package:book_club/Components/animated_icon_text_field.dart';
 import 'package:book_club/Components/box_border_button.dart';
 import 'package:book_club/Components/heading_text.dart';
-import 'package:book_club/Components/primary_text_field.dart';
 import 'package:book_club/Components/title_text.dart';
 import 'package:book_club/Firebase/user.dart';
 import 'package:book_club/Helpers/ui_helper.dart';
@@ -23,6 +23,7 @@ class CompleteProfilePage extends StatefulWidget {
 
 class _CompleteProfilePageState extends State<CompleteProfilePage> {
   late TextEditingController nameController;
+  late TextEditingController phoneController;
 
   @override
   void initState() {
@@ -31,6 +32,14 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
     log("Complete Profile Page Init State");
 
     nameController = TextEditingController();
+    phoneController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    nameController.dispose();
+    phoneController.dispose();
   }
 
   @override
@@ -56,17 +65,31 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                         ),
                         child: TitleText(context: context),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(0, 30, 0, 20),
-                        child: HeadingText(
-                          text: "Profile",
-                          key: ValueKey(1),
-                        ),
+                      const SizedBox(height: 30),
+                      HeadingText(
+                        text: "Complete",
                       ),
-                      PrimaryTextField(
-                          context: context,
-                          labelText: "Enter Name",
-                          textEditingController: nameController),
+                      HeadingText(
+                        text: "Profile",
+                      ),
+                      AnimatedIconTextField(
+                        key: const ValueKey(1),
+                        context: context,
+                        labelText: "Enter Name",
+                        textEditingController: nameController,
+                        icon1: Icons.person_outline,
+                        icon2: Icons.person,
+                        keyboardType: TextInputType.name,
+                      ),
+                      AnimatedIconTextField(
+                        key: const ValueKey(2),
+                        context: context,
+                        labelText: "Enter Phone Number",
+                        textEditingController: phoneController,
+                        icon1: Icons.phone_outlined,
+                        icon2: Icons.phone,
+                        keyboardType: TextInputType.phone,
+                      ),
                       BoxBorderButton(
                         title: "Update",
                         onPressed: updateUserFunction,
@@ -84,12 +107,15 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
   }
 
   updateUserFunction() async {
-    if (nameController.text.isEmpty) {
+    if (nameController.text.isEmpty || phoneController.text.isEmpty) {
       Fluttertoast.showToast(msg: "Please fill all the fields");
       return;
     }
-    
-    userModel!.name = nameController.text;
+
+    userModel!.updateUserModel(
+      name: nameController.text,
+      phone: phoneController.text,
+    );
 
     UIHelper.loadingDialog("Updating Profile", context);
 
