@@ -55,6 +55,8 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: TextField(
         controller: widget.textEditingController,
+        keyboardType: widget.keyboardType,
+        
         onTap: () {
           prefixAnimationController.animateToEnd();
         },
