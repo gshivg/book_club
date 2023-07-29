@@ -6,6 +6,7 @@ class HiddenAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.preferredSize = const Size.fromHeight(50),
   });
 
+  @override
   final Size preferredSize;
 
   @override
@@ -27,6 +28,5 @@ class HiddenAppBar extends StatelessWidget implements PreferredSizeWidget {
         },
       ),
     );
-    ;
   }
 }
