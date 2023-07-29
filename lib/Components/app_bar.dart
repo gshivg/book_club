@@ -14,19 +14,19 @@ class HiddenAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
-      leading: Builder(
-        builder: (context) {
-          return IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Theme.of(context).colorScheme.onBackground,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          );
-        },
-      ),
+      // leading: Builder(
+      //   builder: (context) {
+      //     return IconButton(
+      //       icon: Icon(
+      //         Icons.arrow_back_ios,
+      //         color: Theme.of(context).colorScheme.onBackground,
+      //       ),
+      //       onPressed: () {
+      //         Navigator.pop(context);
+      //       },
+      //     );
+      //   },
+      // ),
     );
   }
 }

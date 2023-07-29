@@ -66,10 +66,10 @@ class _CompleteProfilePageState extends State<CompleteProfilePage> {
                         child: TitleText(context: context),
                       ),
                       const SizedBox(height: 30),
-                      HeadingText(
+                      const HeadingText(
                         text: "Complete",
                       ),
-                      HeadingText(
+                      const HeadingText(
                         text: "Profile",
                       ),
                       AnimatedIconTextField(

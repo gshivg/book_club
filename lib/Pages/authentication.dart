@@ -227,15 +227,18 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
     }
 
     UIHelper.loadingDialog("Signing In...", context);
+
     await userFirebase
         .signInUser(_emailController.text, _passwordController.text)
-        .then((value) {
-      if (value == FirebaseResult.fail || value == FirebaseResult.error) {
-        _closeDialog();
-        return;
-      }
-      navigateToHomeScreen();
-    });
+        .then(
+      (value) {
+        if (value == FirebaseResult.fail || value == FirebaseResult.error) {
+          _closeDialog();
+          return;
+        }
+        navigateToHomeScreen();
+      },
+    );
   }
 
   signUpFunction() async {
@@ -245,6 +248,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
         _passwordController.text.isEmpty ||
         _passwordCNFController.text.isEmpty) {
       Fluttertoast.showToast(msg: "Please fill all the fields");
+      return;
     }
 
     if (_passwordController.text != _passwordCNFController.text) {
@@ -256,16 +260,21 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
 
     await userFirebase
         .createUser(_emailController.text, _passwordController.text)
-        .then((value) {
-      if (value == FirebaseResult.fail || value == FirebaseResult.error) {
+        .then(
+      (value) {
+        if (value == FirebaseResult.fail || value == FirebaseResult.error) {
+          _closeDialog();
+          Fluttertoast.showToast(msg: "Some error has occured");
+          return;
+        }
+
+        userFirebase.createUserProfile();
+
         _closeDialog();
-        return;
-      }
 
-      userFirebase.createUserProfile();
-
-      navigateToHomeScreen();
-    });
+        navigateToHomeScreen();
+      },
+    );
   }
 
   _closeDialog() {
@@ -273,7 +282,6 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
   }
 
   navigateToHomeScreen() {
-    Navigator.pop(context);
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
