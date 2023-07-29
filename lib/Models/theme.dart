@@ -1,5 +1,3 @@
-// This file contains the ThemeModel class which is used to change the theme of the app.
-
 // Flutter Dependencies
 import 'package:flutter/material.dart';
 // Project Dependencies

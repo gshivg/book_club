@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
-
 import 'package:book_club/Components/animated_icon_text_field.dart';
 import 'package:book_club/Components/heading_text.dart';
 import 'package:book_club/Components/box_border_button.dart';

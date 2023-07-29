@@ -4,8 +4,6 @@ import 'package:book_club/Components/title_text.dart';
 import 'package:book_club/Models/theme.dart';
 import 'package:book_club/Models/user.dart';
 import 'package:book_club/Pages/authentication.dart';
-import 'package:book_club/Pages/homepage.dart';
-import 'package:book_club/Shared/saved_user.dart';
 import 'package:book_club/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
