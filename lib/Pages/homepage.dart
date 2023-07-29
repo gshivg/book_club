@@ -92,18 +92,33 @@ class _HomePageState extends State<HomePage> {
   }
 
   checkCompleteProfile() async {
-    SavedUserSharedPreferences().getUser().then((value) {
-      log(value);
-      if (value == "") {
-        navigateToCompleteProfilePage();
-        return;
-      }
-      UserFirebase().getUserByUID(value!).then((_) {
-        if (userModel!.name == null) {
+    SavedUserSharedPreferences().getUser().then(
+      (value) {
+        log(value);
+        if (value == "") {
           navigateToCompleteProfilePage();
+        } else {
+          UserFirebase().getUserByUID(value!).then(
+            (_) {
+              if (checkIncompleteProfile()) {
+                navigateToCompleteProfilePage();
+              }
+            },
+          );
         }
-      });
-    });
+      },
+    );
+  }
+
+  bool checkIncompleteProfile() {
+    if (userModel == null) {
+      return true;
+    } else if (userModel!.name == null) {
+      return true;
+    } else if (userModel!.phone == null) {
+      return true;
+    }
+    return false;
   }
 
   signOutFunction() {
