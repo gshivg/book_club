@@ -42,4 +42,18 @@ class UserModel {
       'updatedAt': updatedAt,
     };
   }
+
+  void updateUserModel({
+    String? name,
+    String? email,
+    String? phone,
+    String? address,
+    String? image,
+  }) {
+    this.name = name ?? this.name;
+    this.email = email ?? this.email;
+    this.phone = phone ?? this.phone;
+    this.address = address ?? this.address;
+    this.image = image ?? this.image;
+  }
 }
