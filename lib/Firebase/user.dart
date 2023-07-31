@@ -1,5 +1,7 @@
 import 'dart:developer';
 
+import 'package:book_club/Firebase/club.dart';
+import 'package:book_club/Helpers/fiirebase_helper.dart';
 import 'package:book_club/Shared/saved_user.dart';
 import 'package:book_club/main.dart';
 
@@ -8,13 +10,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-enum FirebaseResult {
-  success,
-  fail,
-  error,
-}
-
 class UserFirebase {
+  final String firestoreCollectionName = 'users';
+
   final FirebaseAuth auth = FirebaseAuth.instance;
   final SavedUserSharedPreferences savedUserSharedPreferences =
       SavedUserSharedPreferences();
@@ -121,7 +119,7 @@ class UserFirebase {
   createUserProfile() async {
     try {
       await FirebaseFirestore.instance
-          .collection('users')
+          .collection(firestoreCollectionName)
           .doc(userModel!.id)
           .set(userModel!.toMap());
       return FirebaseResult.success;
@@ -137,7 +135,7 @@ class UserFirebase {
   getUser() async {
     try {
       DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
-          .collection('users')
+          .collection(firestoreCollectionName)
           .doc(userModel!.id)
           .get();
       userModel =
@@ -157,7 +155,7 @@ class UserFirebase {
   getUserByUID(String uid) async {
     try {
       await FirebaseFirestore.instance
-          .collection('users')
+          .collection(firestoreCollectionName)
           .doc(uid)
           .get()
           .then((DocumentSnapshot documentSnapshot) {
@@ -180,7 +178,7 @@ class UserFirebase {
     try {
       userModel!.updatedAt = DateTime.now();
       await FirebaseFirestore.instance
-          .collection('users')
+          .collection(firestoreCollectionName)
           .doc(userModel!.id)
           .update(userModel!.toMap());
       return FirebaseResult.success;
@@ -200,6 +198,24 @@ class UserFirebase {
       return FirebaseResult.success;
     } catch (e) {
       log("signOutUser $e");
+      Fluttertoast.showToast(
+        msg: 'Some error has eccured',
+      );
+      return FirebaseResult.error;
+    }
+  }
+
+  joinClub(String clubId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(ClubFirebase().firestoreCollectionName)
+          .doc(clubId)
+          .update({
+        'membersIDs': FieldValue.arrayUnion([userModel!.id])
+      });
+      return FirebaseResult.success;
+    } catch (e) {
+      log("joinClub $e");
       Fluttertoast.showToast(
         msg: 'Some error has eccured',
       );
