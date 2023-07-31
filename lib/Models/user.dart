@@ -1,10 +1,14 @@
 class UserModel {
   String? id;
-  String? name;
   String? email;
+
+  String? name;
   String? phone;
   String? address;
   String? image;
+
+  List<String?>? clubsIDs;
+
   DateTime? createdAt;
   DateTime? updatedAt;
 
