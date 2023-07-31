@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:book_club/Components/animated_icon_text_field.dart';
 import 'package:book_club/Components/heading_text.dart';
 import 'package:book_club/Components/box_border_button.dart';
 import 'package:book_club/Components/options_box_border_button.dart';
 import 'package:book_club/Components/title_text.dart';
+import 'package:book_club/Helpers/fiirebase_helper.dart';
 import 'package:book_club/Firebase/user.dart';
 import 'package:book_club/Helpers/ui_helper.dart';
 import 'package:book_club/Models/theme.dart';
@@ -23,8 +26,6 @@ class AuthenticationPage extends StatefulWidget {
 
 class _AuthenticationPageState extends State<AuthenticationPage> {
   static final GlobalKey<AnimatedListState> listKey = GlobalKey();
-  // ignore: unused_field
-  static final _formKey = GlobalKey<FormState>();
 
   final Key _k1 = GlobalKey();
   final Key _k2 = GlobalKey();
@@ -37,7 +38,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
   bool signinScreenShown = true;
   bool showAnimations = false;
 
-  late List<Widget> screenComponentsList;
+  late List<Widget> formComponentsList;
   late Widget confirmPasswordComponent;
 
   void reFocus() async {
@@ -58,11 +59,13 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
   void initState() {
     super.initState();
 
+    log("Authentication Page Init State");
+
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
     _passwordCNFController = TextEditingController();
 
-    screenComponentsList = [
+    formComponentsList = [
       AnimatedIconTextField(
         key: _k1,
         context: context,
@@ -169,7 +172,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                           return SizeTransition(
                             key: UniqueKey(),
                             sizeFactor: animation,
-                            child: screenComponentsList[index],
+                            child: formComponentsList[index],
                           );
                         },
                         shrinkWrap: true,
@@ -307,7 +310,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
               _passwordCNFController.clear();
               setState(() {
                 signinScreenShown = false;
-                screenComponentsList.add(confirmPasswordComponent);
+                formComponentsList.add(confirmPasswordComponent);
                 listKey.currentState!.insertItem(
                   2,
                   duration: const Duration(milliseconds: 500),
@@ -339,9 +342,9 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
               _passwordCNFController.clear();
               setState(() {
                 signinScreenShown = true;
-                screenComponentsList.remove(confirmPasswordComponent);
+                formComponentsList.remove(confirmPasswordComponent);
                 listKey.currentState!.removeItem(
-                  screenComponentsList.length,
+                  formComponentsList.length,
                   (context, animation) => SizeTransition(
                     key: UniqueKey(),
                     sizeFactor: animation,
