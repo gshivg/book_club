@@ -31,14 +31,24 @@ class UIHelper {
     );
   }
 
+  static Widget loader(BuildContext context) {
+    return SizedBox.square(
+      dimension: MediaQuery.of(context).size.width * 0.06,
+      child: const RiveAnimation.asset(
+        "assets/rive/loading.riv",
+        fit: BoxFit.scaleDown,
+      ),
+    );
+  }
+
   static Widget loadingAnimation(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(400),
       ),
-      height: MediaQuery.of(context).size.height * 0.12,
-      width: MediaQuery.of(context).size.height * 0.12,
+      height: MediaQuery.of(context).size.width * 0.12,
+      width: MediaQuery.of(context).size.width * 0.12,
       child: const RiveAnimation.asset(
         "assets/rive/loading.riv",
         fit: BoxFit.scaleDown,
