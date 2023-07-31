@@ -4,6 +4,7 @@ import 'package:book_club/Components/animated_icon_text_field.dart';
 import 'package:book_club/Components/box_border_button.dart';
 import 'package:book_club/Components/heading_text.dart';
 import 'package:book_club/Components/title_text.dart';
+import 'package:book_club/Helpers/fiirebase_helper.dart';
 import 'package:book_club/Firebase/user.dart';
 import 'package:book_club/Helpers/ui_helper.dart';
 import 'package:book_club/Models/theme.dart';
