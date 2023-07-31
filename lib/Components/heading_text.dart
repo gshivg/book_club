@@ -7,7 +7,6 @@ class HeadingText extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.06,
-      width: MediaQuery.of(context).size.width * 0.5,
       child: Center(
         child: Text(
           text,
