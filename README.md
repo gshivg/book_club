@@ -1,6 +1,6 @@
-# book_club
+# Shiv's Book Gallery
 
-A new Flutter project.
+This is a book club app that let's you to connect to people with similar interests and share your thoughts on books you've read. Find new books to read and get recommendations from other users. Also, help others find new books to read by sharing your thoughts on books you've read. 
 
 ## Getting Started
 
