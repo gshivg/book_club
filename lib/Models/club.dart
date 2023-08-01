@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 class ClubModel {
   String? name;
   String? uid;

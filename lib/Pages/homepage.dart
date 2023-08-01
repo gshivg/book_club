@@ -20,9 +20,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'package:rive/rive.dart';
-
-import 'package:flutter/src/painting/gradient.dart' as gradient;
+import 'package:rive/rive.dart' hide LinearGradient;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -78,7 +76,7 @@ class _HomePageState extends State<HomePage> {
           body: SingleChildScrollView(
             child: Container(
               decoration: BoxDecoration(
-                gradient: gradient.LinearGradient(
+                gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [
@@ -101,7 +99,9 @@ class _HomePageState extends State<HomePage> {
                               child: UIHelper.loader(context),
                             );
                           }
-                          if (snapshot.data == null) {
+                          if (!snapshot.hasData ||
+                              snapshot.data == null ||
+                              (snapshot.data as QuerySnapshot).docs.isEmpty) {
                             return noCLubsJoined();
                           }
                           QuerySnapshot querySnapshot =
@@ -145,9 +145,9 @@ class _HomePageState extends State<HomePage> {
 
   Widget noCLubsJoined() {
     return Center(
-      child: Stack(
+      child: Column(
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        alignment: Alignment.center,
+        // alignment: Alignment.center,
         children: [
           // const Spacer(),
           SizedBox.square(
@@ -162,40 +162,37 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          Positioned(
-            top: 50,
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.4,
-              width: MediaQuery.of(context).size.width * 0.7,
-              child: DefaultTextStyle(
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontSize: Theme.of(context).textTheme.headlineLarge!.fontSize,
-                  fontFamily: "Lugrasimo",
-                ),
-                child: AnimatedTextKit(
-                  animatedTexts: [
-                    RotateAnimatedText(
-                      "You haven't joined any clubs",
-                      textAlign: TextAlign.center,
-                      duration: const Duration(milliseconds: 4000),
-                    ),
-                    RotateAnimatedText(
-                      "Join a club to explore the app",
-                      textAlign: TextAlign.center,
-                      duration: const Duration(milliseconds: 4000),
-                    ),
-                    RotateAnimatedText(
-                      "Press the + button to join a club",
-                      textAlign: TextAlign.center,
-                      duration: const Duration(milliseconds: 4000),
-                    ),
-                  ],
-                  pause: Duration.zero,
-                  isRepeatingAnimation: true,
-                  repeatForever: true,
-                  onTap: () => log("Text Tapped"),
-                ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.4,
+            width: MediaQuery.of(context).size.width * 0.8,
+            child: DefaultTextStyle(
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+                fontSize: Theme.of(context).textTheme.headlineLarge!.fontSize,
+                fontFamily: "Lugrasimo",
+              ),
+              child: AnimatedTextKit(
+                animatedTexts: [
+                  RotateAnimatedText(
+                    "You haven't joined any clubs",
+                    textAlign: TextAlign.center,
+                    duration: const Duration(milliseconds: 4000),
+                  ),
+                  RotateAnimatedText(
+                    "Join a club to explore the app",
+                    textAlign: TextAlign.center,
+                    duration: const Duration(milliseconds: 4000),
+                  ),
+                  RotateAnimatedText(
+                    "Press the + button to join a club",
+                    textAlign: TextAlign.center,
+                    duration: const Duration(milliseconds: 4000),
+                  ),
+                ],
+                pause: Duration.zero,
+                isRepeatingAnimation: true,
+                repeatForever: true,
+                onTap: () => log("Text Tapped"),
               ),
             ),
           ),
