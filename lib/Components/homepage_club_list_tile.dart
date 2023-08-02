@@ -1,4 +1,5 @@
 import 'package:book_club/Models/club.dart';
+import 'package:book_club/Pages/club_page.dart';
 import 'package:book_club/main.dart';
 import 'package:flutter/material.dart';
 
@@ -55,7 +56,18 @@ class _HomepageClubListTileState extends State<HomepageClubListTile> {
                 fontFamily: "Lugrasimo",
               ),
         ),
-        onTap: () {},
+        onTap: navigateToClubPage,
+      ),
+    );
+  }
+
+  void navigateToClubPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ClubPage(
+          clubModel: widget.clubModel,
+        ),
       ),
     );
   }
