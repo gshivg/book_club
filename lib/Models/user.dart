@@ -7,8 +7,6 @@ class UserModel {
   String? address;
   String? image;
 
-  List<String?>? clubsIDs;
-
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -59,5 +57,6 @@ class UserModel {
     this.phone = phone ?? this.phone;
     this.address = address ?? this.address;
     this.image = image ?? this.image;
+    updatedAt = DateTime.now();
   }
 }
