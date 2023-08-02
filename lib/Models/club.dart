@@ -8,6 +8,8 @@ class ClubModel {
   List<String?> adminsIDs = [];
   List<String?> membersIDs = [];
 
+  String? searchTag;
+
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -21,6 +23,7 @@ class ClubModel {
     this.membersIDs,
     this.createdAt,
     this.updatedAt,
+    this.searchTag,
   );
 
   ClubModel.fromMap(Map<String, dynamic> map) {
@@ -41,6 +44,8 @@ class ClubModel {
 
     createdAt = map['createdAt'].toDate();
     updatedAt = map['updatedAt'].toDate();
+
+    searchTag = map['searchTag'];
   }
 
   Map<String, dynamic> toMap() {
@@ -52,6 +57,7 @@ class ClubModel {
       'ownerID': ownerID,
       'adminsIDs': adminsIDs,
       'membersIDs': membersIDs,
+      'searchTag': searchTag,
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };
@@ -63,19 +69,30 @@ class ClubModel {
     String? description,
     String? topic,
     String? ownerID,
-    List<String?>? adminsIDs,
-    List<String?>? membersIDs,
-    DateTime? createdAt,
-    DateTime? updatedAt,
   }) {
     this.name = name ?? this.name;
+    searchTag =
+        name == null ? searchTag : name.toLowerCase().replaceAll(' ', '');
     this.uid = uid ?? this.uid;
     this.description = description ?? this.description;
     this.topic = topic ?? this.topic;
     this.ownerID = ownerID ?? this.ownerID;
-    this.adminsIDs = adminsIDs ?? this.adminsIDs;
-    this.membersIDs = membersIDs ?? this.membersIDs;
-    this.createdAt = createdAt ?? this.createdAt;
-    this.updatedAt = updatedAt ?? this.updatedAt;
+    updatedAt = DateTime.now();
+  }
+
+  addAdmin(String? adminID) {
+    adminsIDs.add(adminID);
+  }
+
+  addMember(String? memberID) {
+    membersIDs.add(memberID);
+  }
+
+  removeAdmin(String? adminID) {
+    adminsIDs.remove(adminID);
+  }
+
+  removeMember(String? memberID) {
+    membersIDs.remove(memberID);
   }
 }
