@@ -13,7 +13,7 @@ import 'package:book_club/Models/club.dart';
 import 'package:book_club/Models/theme.dart';
 import 'package:book_club/Pages/authentication.dart';
 import 'package:book_club/Pages/complete_profile.dart';
-import 'package:book_club/Pages/create_club.dart';
+import 'package:book_club/Pages/search_clubs.dart';
 import 'package:book_club/Shared/saved_user.dart';
 import 'package:book_club/main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                           if (!snapshot.hasData ||
                               snapshot.data == null ||
                               (snapshot.data as QuerySnapshot).docs.isEmpty) {
-                            return noCLubsJoined();
+                            return noClubsJoined();
                           }
                           QuerySnapshot querySnapshot =
                               snapshot.data as QuerySnapshot;
@@ -143,7 +143,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget noCLubsJoined() {
+  Widget noClubsJoined() {
     return Center(
       child: Column(
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -207,10 +207,10 @@ class _HomePageState extends State<HomePage> {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return const CreateClubPage();
+          return const SearchClubsPage();
         },
       ),
-    );
+    ).then((value) => setState(() {}));
   }
 
   checkCompleteProfile() async {
