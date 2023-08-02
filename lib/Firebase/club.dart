@@ -24,7 +24,9 @@ class ClubFirebase {
       [userModel!.id],
       DateTime.now(),
       DateTime.now(),
+      name.toLowerCase().replaceAll(' ', ''),
     );
+    log(clubModel.searchTag!);
     try {
       await FirebaseFirestore.instance
           .collection(firestoreCollectionName)
@@ -43,7 +45,7 @@ class ClubFirebase {
   getClubs(String userId) {
     return FirebaseFirestore.instance
         .collection(firestoreCollectionName)
-        .where('ownerID', isEqualTo: userId)
+        .where('membersIDs', arrayContains: userId)
         .snapshots();
   }
 
@@ -52,6 +54,14 @@ class ClubFirebase {
         .collection(firestoreCollectionName)
         .doc(clubId)
         .get();
+  }
+
+  getClubsByTag(String name) {
+    return FirebaseFirestore.instance
+        .collection(firestoreCollectionName)
+        .where('searchTag', isGreaterThanOrEqualTo: name)
+        .where('searchTag', isLessThan: '$name\uf8ff')
+        .snapshots();
   }
 
   updateClub(ClubModel clubModel) async {
