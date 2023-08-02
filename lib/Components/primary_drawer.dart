@@ -1,3 +1,4 @@
+import 'package:book_club/main.dart';
 import 'package:flutter/material.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -19,13 +20,13 @@ class _MyDrawerState extends State<MyDrawer> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
+          DrawerHeader(
+            decoration: const BoxDecoration(
               color: Color(0xff16697A),
             ),
             child: Text(
-              "Book Club",
-              style: TextStyle(
+              userModel!.name!,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 24,
               ),
