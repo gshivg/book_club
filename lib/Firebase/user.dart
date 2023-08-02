@@ -55,14 +55,14 @@ class UserFirebase {
           break;
         default:
           Fluttertoast.showToast(
-            msg: 'Some error has eccured',
+            msg: 'Some error has occured',
           );
       }
       return FirebaseResult.fail;
     } catch (e) {
       log("createUser $e");
       Fluttertoast.showToast(
-        msg: 'Some error has eccured',
+        msg: 'Some error has occured',
       );
       return FirebaseResult.error;
     }
@@ -79,7 +79,7 @@ class UserFirebase {
       savedUserSharedPreferences.setUser(userModel!.id!);
       return FirebaseResult.success;
     } on FirebaseAuthException catch (e) {
-      log(e.toString());
+      log("signInUser $e");
       switch (e.code) {
         case 'invalid-email':
           Fluttertoast.showToast(
@@ -103,14 +103,14 @@ class UserFirebase {
           break;
         default:
           Fluttertoast.showToast(
-            msg: 'Some error has eccured',
+            msg: 'Some error has occured',
           );
       }
       return FirebaseResult.fail;
     } catch (e) {
       log("signInUser $e");
       Fluttertoast.showToast(
-        msg: 'Some error has eccured',
+        msg: 'Some error has occured',
       );
       return FirebaseResult.error;
     }
@@ -126,7 +126,7 @@ class UserFirebase {
     } catch (e) {
       log("createUserProfile $e");
       Fluttertoast.showToast(
-        msg: 'Some error has eccured',
+        msg: 'Some error has occured',
       );
       return FirebaseResult.error;
     }
@@ -140,13 +140,12 @@ class UserFirebase {
           .get();
       userModel =
           UserModel.fromMap(documentSnapshot.data() as Map<String, dynamic>);
-      log("143");
       savedUserSharedPreferences.setUser(userModel!.id!);
       return FirebaseResult.success;
     } catch (e) {
       log("getUser $e");
       Fluttertoast.showToast(
-        msg: 'Some error has eccured',
+        msg: 'Some error has occured',
       );
       return FirebaseResult.error;
     }
@@ -168,7 +167,7 @@ class UserFirebase {
     } catch (e) {
       log("getUserByUID $e");
       Fluttertoast.showToast(
-        msg: 'Some error has eccured',
+        msg: 'Some error has occured',
       );
       return FirebaseResult.error;
     }
@@ -185,7 +184,7 @@ class UserFirebase {
     } catch (e) {
       log("updateUserProfile $e");
       Fluttertoast.showToast(
-        msg: 'Some error has eccured',
+        msg: 'Some error has occured',
       );
       return FirebaseResult.error;
     }
@@ -199,7 +198,7 @@ class UserFirebase {
     } catch (e) {
       log("signOutUser $e");
       Fluttertoast.showToast(
-        msg: 'Some error has eccured',
+        msg: 'Some error has occured',
       );
       return FirebaseResult.error;
     }
@@ -217,7 +216,25 @@ class UserFirebase {
     } catch (e) {
       log("joinClub $e");
       Fluttertoast.showToast(
-        msg: 'Some error has eccured',
+        msg: 'Some error has occured',
+      );
+      return FirebaseResult.error;
+    }
+  }
+
+  leaveClub(String clubID) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(ClubFirebase().firestoreCollectionName)
+          .doc(clubID)
+          .update({
+        'membersIDs': FieldValue.arrayRemove([userModel!.id])
+      });
+      return FirebaseResult.success;
+    } catch (e) {
+      log("leaveClub $e");
+      Fluttertoast.showToast(
+        msg: 'Some error has occured',
       );
       return FirebaseResult.error;
     }
