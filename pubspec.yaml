@@ -49,3 +49,6 @@ flutter:
     - family: Lugrasimo
       fonts: 
         - asset: fonts/Lugrasimo-Regular.ttf
+    - family: SeptemberScript
+      fonts: 
+        - asset: fonts/SeptemberScript.ttf
