@@ -9,6 +9,7 @@ import 'package:book_club/Components/title_text.dart';
 import 'package:book_club/Firebase/club.dart';
 import 'package:book_club/Helpers/fiirebase_helper.dart';
 import 'package:book_club/Helpers/ui_helper.dart';
+import 'package:book_club/Pages/homepage.dart';
 import 'package:book_club/Painters/outer_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -209,6 +210,14 @@ class _CreateClubPageState extends State<CreateClubPage> {
           Fluttertoast.showToast(msg: "Some error has eccured");
         }
         Navigator.pop(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return const HomePage();
+            },
+          ),
+        );
       },
     );
   }
