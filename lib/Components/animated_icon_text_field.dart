@@ -11,6 +11,7 @@ class AnimatedIconTextField extends StatefulWidget {
     this.keyboardType = TextInputType.text,
     required this.labelText,
     required this.textEditingController,
+    this.onChanged,
   });
 
   final TextEditingController textEditingController;
@@ -20,6 +21,8 @@ class AnimatedIconTextField extends StatefulWidget {
   final IconData icon2;
   final bool isPassword;
   final TextInputType keyboardType;
+
+  final VoidCallback? onChanged;
   @override
   State<AnimatedIconTextField> createState() => _AnimatedIconTextFieldState();
 }
@@ -56,7 +59,6 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
       child: TextField(
         controller: widget.textEditingController,
         keyboardType: widget.keyboardType,
-        
         onTap: () {
           prefixAnimationController.animateToEnd();
         },
@@ -90,6 +92,9 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
               submitted = false;
               prefixAnimationController.animateToStart();
             }
+          }
+          if (widget.onChanged != null) {
+            widget.onChanged!();
           }
         },
         obscureText: passwordVisible,
