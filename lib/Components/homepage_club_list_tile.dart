@@ -45,7 +45,7 @@ class _HomepageClubListTileState extends State<HomepageClubListTile> {
           widget.clubModel.name!,
           style: Theme.of(context).textTheme.headlineMedium!.copyWith(
                 color: Theme.of(context).colorScheme.primary,
-                fontFamily: "Lugrasimo",
+                fontFamily: "Quicksand",
                 fontWeight: FontWeight.bold,
               ),
         ),
@@ -53,7 +53,7 @@ class _HomepageClubListTileState extends State<HomepageClubListTile> {
           widget.clubModel.topic!,
           style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                 color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
-                fontFamily: "Lugrasimo",
+                fontFamily: "Quicksand",
               ),
         ),
         onTap: navigateToClubPage,

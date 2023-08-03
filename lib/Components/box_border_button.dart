@@ -59,7 +59,7 @@ class _BoxBorderButtonState extends State<BoxBorderButton> {
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge!
-                        .copyWith(fontFamily: "Lugrasimo"),
+                        .copyWith(fontFamily: "Quicksand"),
                   ),
                 ],
               ),

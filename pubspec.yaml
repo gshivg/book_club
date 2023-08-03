@@ -49,6 +49,33 @@ flutter:
     - family: Lugrasimo
       fonts: 
         - asset: fonts/Lugrasimo-Regular.ttf
+
     - family: SeptemberScript
       fonts: 
         - asset: fonts/SeptemberScript.ttf
+
+    - family: Rajdhani
+      fonts: 
+        - asset: fonts/Rajdhani/Rajdhani-Bold.ttf
+          weight: 700
+        - asset: fonts/Rajdhani/Rajdhani-Light.ttf
+          weight: 300
+        - asset: fonts/Rajdhani/Rajdhani-Medium.ttf
+          weight: 500
+        - asset: fonts/Rajdhani/Rajdhani-Regular.ttf
+          weight: 400
+        - asset: fonts/Rajdhani/Rajdhani-Semibold.ttf
+          weight: 600
+
+    - family: Quicksand
+      fonts: 
+        - asset: fonts/Quicksand/static/Quicksand-Bold.ttf
+          weight: 700
+        - asset: fonts/Quicksand/static/Quicksand-Light.ttf
+          weight: 300
+        - asset: fonts/Quicksand/static/Quicksand-Medium.ttf
+          weight: 500
+        - asset: fonts/Quicksand/static/Quicksand-Regular.ttf
+          weight: 400
+        - asset: fonts/Quicksand/static/Quicksand-Semibold.ttf
+          weight: 600

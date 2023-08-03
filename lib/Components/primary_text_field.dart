@@ -37,7 +37,7 @@ class _PrimaryTextFieldState extends State<PrimaryTextField>
           prefixIcon: widget.icon == null ? null : Icon(widget.icon),
           labelText: widget.labelText,
           labelStyle: const TextStyle(
-            fontFamily: "Lugrasimo",
+            fontFamily: "Quicksand",
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),

@@ -112,7 +112,7 @@ class _AnimatedIconTextFieldState extends State<AnimatedIconTextField>
           ),
           labelText: widget.labelText,
           labelStyle: const TextStyle(
-            fontFamily: "Lugrasimo",
+            fontFamily: "Quicksand",
           ),
           suffixIcon: widget.isPassword
               ? AnimateIcons(

@@ -61,7 +61,7 @@ class _SearchClubPageListTileState extends State<SearchClubPageListTile> {
           widget.clubModel.name!,
           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                 color: Theme.of(context).colorScheme.primary,
-                fontFamily: "Lugrasimo",
+                fontFamily: "Quicksand",
                 fontWeight: FontWeight.bold,
               ),
         ),
@@ -69,7 +69,7 @@ class _SearchClubPageListTileState extends State<SearchClubPageListTile> {
           widget.clubModel.topic!,
           style: Theme.of(context).textTheme.bodySmall!.copyWith(
                 color: Theme.of(context).colorScheme.primary.withOpacity(0.5),
-                fontFamily: "Lugrasimo",
+                fontFamily: "Quicksand",
               ),
         ),
         onTap: navigatetoClubPage,
@@ -87,10 +87,7 @@ class _SearchClubPageListTileState extends State<SearchClubPageListTile> {
     } catch (e) {
       log(e.toString());
       _closeDialog();
-      Fluttertoast.showToast(
-        msg: "Some error occured.",
-        backgroundColor: Theme.of(context).colorScheme.error,
-      );
+      Fluttertoast.showToast(msg: "Some error occured.");
     }
   }
 

@@ -169,7 +169,7 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
                 fontSize: Theme.of(context).textTheme.headlineLarge!.fontSize,
-                fontFamily: "Lugrasimo",
+                fontFamily: "Quicksand",
               ),
               child: AnimatedTextKit(
                 animatedTexts: [

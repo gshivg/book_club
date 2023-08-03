@@ -26,7 +26,7 @@ class StyledAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: TextStyle(
           color: Theme.of(context).colorScheme.primary,
           fontSize: 20,
-          fontFamily: "Lugrasimo",
+          fontFamily: "Quicksand",
         ),
       ),
       leading: Builder(
@@ -38,7 +38,9 @@ class StyledAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: Theme.of(context).colorScheme.primary,
             ),
             onPressed: () {
-              Navigator.pop(context, );
+              Navigator.pop(
+                context,
+              );
             },
           );
         },

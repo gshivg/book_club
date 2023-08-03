@@ -16,7 +16,7 @@ class UIHelper {
               message,
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     color: Theme.of(context).colorScheme.onBackground,
-                    fontFamily: "Lugrasimo",
+                    fontFamily: "Quicksand",
                   ),
             ),
           ],

@@ -12,7 +12,7 @@ class HeadingText extends StatelessWidget {
           text,
           style: TextStyle(
             fontSize: Theme.of(context).textTheme.headlineLarge!.fontSize,
-            fontFamily: "Lugrasimo",
+            fontFamily: "Quicksand",
           ),
         ),
       ),

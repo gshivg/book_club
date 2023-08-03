@@ -75,7 +75,7 @@ class _OptionsBoxBorderButtonState extends State<OptionsBoxBorderButton> {
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge!
-                                .copyWith(fontFamily: "Lugrasimo"),
+                                .copyWith(fontFamily: "Quicksand"),
                           ),
                         ],
                       )
@@ -96,7 +96,7 @@ class _OptionsBoxBorderButtonState extends State<OptionsBoxBorderButton> {
                             style: Theme.of(context)
                                 .textTheme
                                 .titleLarge!
-                                .copyWith(fontFamily: "Lugrasimo"),
+                                .copyWith(fontFamily: "Quicksand"),
                           ),
                         ],
                       ),
