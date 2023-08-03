@@ -107,7 +107,7 @@ class _CreateClubPageState extends State<CreateClubPage> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.12,
+                          top: MediaQuery.of(context).size.height * 0.087,
                         ),
                         child: TitleText(context: context),
                       ),
