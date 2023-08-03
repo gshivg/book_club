@@ -51,6 +51,7 @@ class _ClubPageDrawerState extends State<ClubPageDrawer> {
               if (widget.clubModel.ownerID == userModel!.id!) {
                 Fluttertoast.showToast(
                     msg: "You are the owner of this club, you cannot leave");
+                _closeDialog();
                 return;
               }
 
